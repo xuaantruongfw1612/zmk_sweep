@@ -1,0 +1,11 @@
+name: Build ZMK Firmware
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    if: ${{ true }}
+    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+

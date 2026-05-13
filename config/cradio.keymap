@@ -118,7 +118,7 @@
             // ┌─────┬─────┬─────┬─────┬─────┐   ┌─────┬─────┬─────┬─────┬─────┐
             // │  1  │  2  │  3  │  4  │  5  │   │  6  │  7  │  8  │  9  │  0  │
             // ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
-            // │ SFT*│ ALT*│ GUI*│ CTL*│ MOU │   │  ←  │  ↓  │  ↑  │  →  │     │
+            // │ SFT*│ ALT*│ GUI*│ CTL*│     │   │  ←  │  ↓  │  ↑  │  →  │     │
             // ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
             // │UNDO │ CUT │COPY │ TAB │PASTE│   │CAPSW│  ⌫  │UNSTK│     │ ESC │
             // └─────┴─────┴─────┼─────┼─────┤   ├─────┼─────┼─────┴─────┴─────┘
@@ -126,7 +126,7 @@
             //                   └─────┴─────┘   └─────┴─────┘
             bindings = <
             &kp N1     &kp N2    &kp N3    &kp N4    &kp N5       &kp N6      &kp N7       &kp N8    &kp N9   &kp N0
-            &sk LSHIFT &sk LALT  &sk LGUI  &sk LCTRL &tog MOU     &kp LARW    &kp DARW     &kp UARW  &kp RARW &trans
+            &sk LSHIFT &sk LALT  &sk LGUI  &sk LCTRL &none        &kp LARW    &kp DARW     &kp UARW  &kp RARW &trans
             &kp LC(Z)  &kp LC(X) &kp LC(C) &kp TAB   &kp LC(V)    &caps_word  &kp LC(BSPC) &unstick  &trans   &kp ESC 
                                            &trans   &trans        &trans      &trans
             >;

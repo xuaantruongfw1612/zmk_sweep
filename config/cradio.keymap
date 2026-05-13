@@ -59,7 +59,7 @@
             timeout-ms = <50>;
             key-positions = <17 18>;
             bindings = <&kp ESC>;
-            layers = <MOU COL>;
+            layers = </* MOU */ COL>;
         };
        
         combo_settings {

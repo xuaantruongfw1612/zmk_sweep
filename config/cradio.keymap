@@ -17,7 +17,7 @@
         unstick: unstick {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp LSHIFT &kp RSHIFT &kp LCTRL &kp RCTRL 
+            bindings = <&kp LSHIFT &kp RSHIFT &kp LCTRL &kp RCTRL
                         &kp LALT &kp RALT &kp LGUI &kp RGUI>;
         };
     };
@@ -62,7 +62,7 @@
             bindings = <&kp ESC>;
             layers = <COL>;
         };
-       
+
         combo_settings {
             timeout-ms = <300>;
             key-positions = <30 31>;
@@ -74,51 +74,51 @@
         compatible = "zmk,conditional-layers";
         tri_layer {
             if-layers = <SYM NUM>;
-            then-layer = <FUN>; 
+            then-layer = <FUN>;
         };
     };
-    
+
     keymap {
         compatible = "zmk,keymap";
 
         colemak-dh_layer {
-            bindings = 
-            &kp Q        &kp W       &kp F        &kp P         &kp B       &kp J  &kp L        &kp U      &kp Y    &kp SEMI
-            &hm LSHIFT A &hm LALT R  &hm LGUI S   &hm LCTRL T   &kp G       &kp M  &kp N        &kp E      &kp I    &kp O
-            &kp Z        &kp X       &kp C        &kp D         &kp V       &kp K  &kp H        &kp COMMA  &kp DOT  &kp FSLH
-                                                  &mo NUM       &kp SPACE   &kp ENTER  &lt_custom SYM BSPC
+            bindings = <
+            &kp Q        &kp W       &kp F        &kp P        &kp B      &kp J      &kp L        &kp U      &kp Y    &kp SEMI
+            &hm LGUI A   &hm LALT R  &hm LCTRL S  &hm LSHIFT T &kp G      &kp M      &kp N        &kp E      &kp I    &kp O
+            &kp Z        &kp X       &kp C        &kp D        &kp V      &kp K      &kp H        &kp COMMA  &kp DOT  &kp FSLH
+                                                  &mo NUM      &kp SPACE  &kp ENTER  &lt_custom SYM BSPC
             >;
         };
 
         num_layer {
-            bindings = 
-            &kp N1     &kp N2    &kp N3    &kp N4    &kp N5      &kp N6      &kp N7       &kp N8    &kp N9   &kp N0
-            &sk LSHIFT &sk LALT  &sk LGUI  &sk LCTRL &none       &kp LARW    &kp DARW     &kp UARW  &kp RARW &trans
-            &kp LC(Z)  &kp LC(X) &kp LC(C) &kp TAB   &kp LC(V)   &caps_word  &kp LC(BSPC) &unstick  &trans   &kp ESC
-                                           &trans    &trans      &trans      &trans
+            bindings = <
+            &kp N1     &kp N2    &kp N3    &kp N4    &kp N5     &kp N6     &kp N7       &kp N8    &kp N9   &kp N0
+            &sk LSHIFT &sk LALT  &sk LGUI  &sk LCTRL &none      &kp LARW   &kp DARW     &kp UARW  &kp RARW &trans
+            &kp LC(Z)  &kp LC(X) &kp LC(C) &kp TAB   &kp LC(V)  &caps_word &kp LC(BSPC) &unstick  &trans   &kp ESC
+                                           &trans    &trans     &trans     &trans
             >;
         };
 
         sym_layer {
-            bindings = 
-            &kp EXCL  &kp AT  &kp HASH &kp DLLR &kp PRCNT   &kp CARET &kp AMPS  &kp ASTRK &kp LPAR &kp RPAR
-            &kp GRAVE &kp DQT &kp LBKT &kp LBRC &none       &kp MINUS &kp EQUAL &kp BSLH  &kp PIPE &none
-            &kp TILDE &kp SQT &kp RBKT &kp RBRC &none       &kp UNDER &kp PLUS  &kp LT    &kp GT   &kp QMARK
-                                       &trans   &trans      &trans    &trans
+            bindings = <
+            &kp EXCL  &kp AT  &kp HASH &kp DLLR &kp PRCNT  &kp CARET &kp AMPS  &kp ASTRK &kp LPAR &kp RPAR
+            &kp GRAVE &kp DQT &kp LBKT &kp LBRC &none      &kp MINUS &kp EQUAL &kp BSLH  &kp PIPE &none
+            &kp TILDE &kp SQT &kp RBKT &kp RBRC &none      &kp UNDER &kp PLUS  &kp LT    &kp GT   &kp QMARK
+                                       &trans   &trans     &trans    &trans
             >;
         };
-            
+
         function_layer {
-            bindings = 
-            &kp F1     &kp F2    &kp F3    &kp F4    &kp F5    &kp F6        &kp F7       &kp F8    &kp F9      &kp F10
-            &kp LSHIFT &kp LALT  &kp LGUI  &kp LCTRL &none     &kp C_BRI_UP  &kp C_VOL_UP &kp C_MUTE &kp F12   &kp F11
-            &kp HOME   &kp PG_DN &kp PG_UP &kp END   &trans    &kp C_BRI_DEC &kp C_VOL_DN &kp PSCRN &kp C_SLEEP &trans
-                                           &trans    &trans    &trans        &trans
+            bindings = <
+            &kp F1     &kp F2    &kp F3    &kp F4    &kp F5  &kp F6        &kp F7       &kp F8     &kp F9      &kp F10
+            &kp LSHIFT &kp LALT  &kp LGUI  &kp LCTRL &none   &kp C_BRI_UP  &kp C_VOL_UP &kp C_MUTE &kp F12     &kp F11
+            &kp HOME   &kp PG_DN &kp PG_UP &kp END   &trans  &kp C_BRI_DEC &kp C_VOL_DN &kp PSCRN  &kp C_SLEEP &trans
+                                           &trans    &trans  &trans        &trans
             >;
         };
 
         settings_layer {
-            bindings = 
+            bindings = <
             &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_CLR &bootloader  &bootloader &none &none &none &none
             &bt BT_SEL 3 &bt BT_SEL 4 &none        &none      &none        &none       &none &none &none &none
             &none        &none        &none        &none      &none        &none       &none &none &none &none

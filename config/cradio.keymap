@@ -54,6 +54,12 @@
     };
 
     combos {
+        /*
+        | 0  | 1  | 2  | 3  | 4  |      | 5  | 6  | 7  | 8  | 9  |
+        | 10 | 11 | 12 | 13 | 14 |      | 15 | 16 | 17 | 18 | 19 |
+        | 20 | 21 | 22 | 23 | 24 |      | 25 | 26 | 27 | 28 | 29 |
+                       | 30 | 31 |      | 32 | 33 |
+        */ 
         compatible = "zmk,combos";
 
         combo_esc_ei {
@@ -82,15 +88,37 @@
         compatible = "zmk,keymap";
 
         colemak-dh_layer {
+            // Base (Colemak-DH)
+            // ┌─────┬─────┬─────┬─────┬─────┐   ┌─────┬─────┬─────┬─────┬─────┐
+            // │  Q  │  W  │  F  │  P  │  B  │   │  J  │  L  │  U  │  Y  │  ;  │
+            // ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
+            // │  A  │  R  │  S  │  T  │  G  │   │  M  │  N  │  E  │  I  │  O  │
+            // │ SFT*│ ALT*│ GUI*│ CTL*│     │   │     │     │    ESC    │     │
+            // ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
+            // │  Z  │  X  │  C  │  D  │  V  │   │  K  │  H  │  ,  │  .  │  /  │
+            // └─────┴─────┴─────┼─────┼─────┤   ├─────┼─────┼─────┴─────┴─────┘
+            //                   │ NUM │SPACE│   │ENTER│BSPC │
+            //  (* HOME ROW MOD) │     │     │   │     │ SYM │
+            //                   └─────┴─────┘   └─────┴─────┘
             bindings = <
             &kp Q        &kp W       &kp F        &kp P        &kp B      &kp J      &kp L        &kp U      &kp Y    &kp SEMI
-            &hm LGUI A   &hm LALT R  &hm LCTRL S  &hm LSHIFT T &kp G      &kp M      &kp N        &kp E      &kp I    &kp O
+            &kp LSHIFT A &kp LALT R  &kp LGUI S   &kp LCTRL T  &kp G      &kp M      &kp N        &kp E      &kp I    &kp O
             &kp Z        &kp X       &kp C        &kp D        &kp V      &kp K      &kp H        &kp COMMA  &kp DOT  &kp FSLH
                                                   &mo NUM      &kp SPACE  &kp ENTER  &lt_custom SYM BSPC
             >;
         };
 
         num_layer {
+            // NUM (Numbers + Nav + Edit)
+            // ┌─────┬─────┬─────┬─────┬─────┐   ┌─────┬─────┬─────┬─────┬─────┐
+            // │  1  │  2  │  3  │  4  │  5  │   │  6  │  7  │  8  │  9  │  0  │
+            // ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
+            // │ SFT*│ ALT*│ GUI*│ CTL*│     │   │  ←  │  ↓  │  ↑  │  →  │     │
+            // ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
+            // │UNDO │ CUT │COPY │ TAB │PASTE│   │CAPSW│  ⌫  │UNSTK│     │ ESC │
+            // └─────┴─────┴─────┼─────┼─────┤   ├─────┼─────┼─────┴─────┴─────┘
+            //        (* STICKY) │     │     │   │     │     │
+            //                   └─────┴─────┘   └─────┴─────┘
             bindings = <
             &kp N1     &kp N2    &kp N3    &kp N4    &kp N5     &kp N6     &kp N7       &kp N8    &kp N9   &kp N0
             &sk LSHIFT &sk LALT  &sk LGUI  &sk LCTRL &none      &kp LARW   &kp DARW     &kp UARW  &kp RARW &trans
@@ -100,6 +128,17 @@
         };
 
         sym_layer {
+            // SYM (Symbols)
+            // ┌─────┬─────┬─────┬─────┬─────┐   ┌─────┬─────┬─────┬─────┬─────┐
+            // │  !  │  @  │  #  │  $  │  %  │   │  ^  │  &  │  *  │  (  │  )  │
+            // ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
+            // │  `  │  "  │  [  │  {  │     │   │  -  │  =  │  \  │  |  │     │
+            // ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
+            // │  ~  │  '  │  ]  │  }  │     │   │  _  │  +  │  <  │  >  │  ?  │
+            // └─────┴─────┴─────┼─────┼─────┤   ├─────┼─────┼─────┴─────┴─────┘
+            //                   │     │     │   │     │     │
+            //                   └─────┴─────┘   └─────┴─────┘
+            bindings = <
             bindings = <
             &kp EXCL  &kp AT  &kp HASH &kp DLLR &kp PRCNT  &kp CARET &kp AMPS  &kp ASTRK &kp LPAR &kp RPAR
             &kp GRAVE &kp DQT &kp LBKT &kp LBRC &none      &kp MINUS &kp EQUAL &kp BSLH  &kp PIPE &none
@@ -109,6 +148,16 @@
         };
 
         function_layer {
+            // FUN (Fn + Media)
+            // ┌─────┬─────┬─────┬─────┬─────┐   ┌─────┬─────┬─────┬─────┬─────┐
+            // │ F1  │ F2  │ F3  │ F4  │ F5  │   │ F6  │ F7  │ F8  │ F9  │ F10 │
+            // ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
+            // │SHIFT│ ALT │ GUI │ CTRL│     │   │BRI+ │VOL+ │MUTE │ F12 │ F11 │
+            // ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
+            // │HOME │PG_DN│PG_UP│ END │     │   │BRI- │VOL- │PSCRN│SLEEP│     │
+            // └─────┴─────┴─────┼─────┼─────┤   ├─────┼─────┼─────┴─────┴─────┘
+            //                   │     │     │   │     │     │
+            //                   └─────┴─────┘   └─────┴─────┘
             bindings = <
             &kp F1     &kp F2    &kp F3    &kp F4    &kp F5  &kp F6        &kp F7       &kp F8     &kp F9      &kp F10
             &kp LSHIFT &kp LALT  &kp LGUI  &kp LCTRL &none   &kp C_BRI_UP  &kp C_VOL_UP &kp C_MUTE &kp F12     &kp F11
@@ -118,6 +167,16 @@
         };
 
         settings_layer {
+            // SET (Bluetooth + Unstick + Boot)
+            // ┌─────┬─────┬─────┬─────┬─────┐   ┌─────┬─────┬─────┬─────┬─────┐
+            // │BT0  │BT1  │BT2  │BTCLR│BOOT │   │BOOT │     │     │     │     │
+            // ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
+            // │BT3  │BT4  │BT5  │     │     │   │     │     │     │     │     │
+            // ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
+            // │     │     │     │     │     │   │     │     │     │     │     │
+            // └─────┴─────┴─────┼─────┼─────┤   ├─────┼─────┼─────┴─────┴─────┘
+            //                   │     │     │   │UNSTK│     │
+            //                   └─────┴─────┘   └─────┴─────┘
             bindings = <
             &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_CLR &bootloader  &bootloader &none &none &none &none
             &bt BT_SEL 3 &bt BT_SEL 4 &none        &none      &none        &none       &none &none &none &none

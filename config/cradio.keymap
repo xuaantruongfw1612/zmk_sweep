@@ -5,19 +5,16 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
-// #include <dt-bindings/zmk/mouse.h>
 
 #define COL 0
 #define NUM 1
 #define SYM 2
 #define FUN 3
-// #define MOU 4
 #define SET 4
 
 / {
     macros {
         unstick: unstick {
-            label = "ZM_unstick";
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
             bindings = <&kp LSHIFT &kp RSHIFT &kp LCTRL &kp RCTRL 
@@ -44,22 +41,33 @@
             require-prior-idle-ms = <50>;
             bindings = <&mo>, <&kp>;
         };
+
+        hm: homerow_mod {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            tapping-term-ms = <400>;
+            quick-tap-ms = <150>;
+            require-prior-idle-ms = <200>;
+            bindings = <&kp>, <&kp>;
+        };
+
+        bspc_del: backspace_delete {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&kp BSPC>, <&kp DEL>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
     };
 
     combos {
-        /*
-        | 0  | 1  | 2  | 3  | 4  |      | 5  | 6  | 7  | 8  | 9  |
-        | 10 | 11 | 12 | 13 | 14 |      | 15 | 16 | 17 | 18 | 19 |
-        | 20 | 21 | 22 | 23 | 24 |      | 25 | 26 | 27 | 28 | 29 |
-                       | 30 | 31 |      | 32 | 33 |
-        */
         compatible = "zmk,combos";
 
         combo_esc_ei {
             timeout-ms = <50>;
             key-positions = <17 18>;
             bindings = <&kp ESC>;
-            layers = </* MOU */ COL>;
+            layers = <COL>;
         };
        
         combo_settings {
@@ -76,74 +84,30 @@
             then-layer = <FUN>; 
         };
     };
-
-    /* mouse {
-        compatible = "zmk,mouse";
-        mousekey-delay-ms = <0>;
-        mousekey-interval-ms = <16>;
-        mousekey-move-delta = <3>;
-        mousekey-initial-speed = <400>;
-        mousekey-decelerated-speed = <600>;
-        mousekey-max-speed = <900>;
-        mousekey-wheel-interval-ms = <40>;
-        mousekey-wheel-max-speed = <6>;
-    }; */
     
     keymap {
         compatible = "zmk,keymap";
 
         colemak-dh_layer {
-            // Base (Colemak-DH)
-            // ┌─────┬─────┬─────┬─────┬─────┐   ┌─────┬─────┬─────┬─────┬─────┐
-            // │  Q  │  W  │  F  │  P  │  B  │   │  J  │  L  │  U  │  Y  │  ;  │
-            // ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
-            // │  A  │  R  │  S  │  T  │  G  │   │  M  │  N  │  E  │  I  │  O  │
-            // │     │     │     │     │     │   │     │     │    ESC    │     │
-            // ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
-            // │  Z  │  X  │  C  │  D  │  V  │   │  K  │  H  │  ,  │  .  │  /  │
-            // └─────┴─────┴─────┼─────┼─────┤   ├─────┼─────┼─────┴─────┴─────┘
-            //                   │ NUM │SPACE│   │ENTER│BSPC │
-            //                   │     │     │   │     │ SYM │
-            //                   └─────┴─────┘   └─────┴─────┘            
-            bindings = <
-            &kp Q  &kp W  &kp F  &kp P  &kp B       &kp J  &kp L     &kp U     &kp Y    &kp SEMI
-            &kp A  &kp R  &kp S  &kp T  &kp G       &kp M  &kp N     &kp E     &kp I    &kp O
-            &kp Z  &kp X  &kp C  &kp D  &kp V       &kp K  &kp H     &kp COMMA &kp DOT  &kp FSLH
-                               &mo NUM  &kp SPACE   &kp ENTER        &lt_custom SYM BSPC
+            bindings = 
+            &kp Q        &kp W       &kp F        &kp P         &kp B       &kp J  &kp L  &kp U      &kp Y  &kp SEMI
+            &hm LGUI A   &hm LALT R  &hm LCTRL S  &hm LSHIFT T  &kp G       &kp M  &kp N  &kp E      &kp I  &kp O
+            &kp Z        &kp X       &kp C        &kp D         &kp V       &kp K  &kp H  &kp COMMA  &kp DOT  &kp FSLH
+                                                  &mo NUM       &kp SPACE   &kp ENTER  &lt_custom SYM BSPC
             >;
         };
 
         num_layer {
-            // NUM (Numbers + Nav + Edit)
-            // ┌─────┬─────┬─────┬─────┬─────┐   ┌─────┬─────┬─────┬─────┬─────┐
-            // │  1  │  2  │  3  │  4  │  5  │   │  6  │  7  │  8  │  9  │  0  │
-            // ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
-            // │ SFT*│ ALT*│ GUI*│ CTL*│     │   │  ←  │  ↓  │  ↑  │  →  │     │
-            // ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
-            // │UNDO │ CUT │COPY │ TAB │PASTE│   │CAPSW│  ⌫  │UNSTK│     │ ESC │
-            // └─────┴─────┴─────┼─────┼─────┤   ├─────┼─────┼─────┴─────┴─────┘
-            //        (* STICKY) │     │     │   │     │     │
-            //                   └─────┴─────┘   └─────┴─────┘
-            bindings = <
+            bindings = 
             &kp N1     &kp N2    &kp N3    &kp N4    &kp N5       &kp N6      &kp N7       &kp N8    &kp N9   &kp N0
             &sk LSHIFT &sk LALT  &sk LGUI  &sk LCTRL &none        &kp LARW    &kp DARW     &kp UARW  &kp RARW &trans
             &kp LC(Z)  &kp LC(X) &kp LC(C) &kp TAB   &kp LC(V)    &caps_word  &kp LC(BSPC) &unstick  &trans   &kp ESC 
-                                           &trans   &trans        &trans      &trans
+                                           &trans    &trans       &trans      &trans
             >;
         };
 
         sym_layer {
-            // SYM (Symbols)
-            // ┌─────┬─────┬─────┬─────┬─────┐   ┌─────┬─────┬─────┬─────┬─────┐
-            // │  !  │  @  │  #  │  $  │  %  │   │  ^  │  &  │  *  │  (  │  )  │
-            // ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
-            // │  `  │  "  │  [  │  {  │     │   │  -  │  =  │  \  │  |  │     │
-            // ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
-            // │  ~  │  '  │  ]  │  }  │     │   │  _  │  +  │  <  │  >  │  ?  │
-            // └─────┴─────┴─────┼─────┼─────┤   ├─────┼─────┼─────┴─────┴─────┘
-            //                   │     │     │   │     │     │
-            //                   └─────┴─────┘   └─────┴─────┘
-            bindings = <
+            bindings = 
             &kp EXCL  &kp AT   &kp HASH &kp DLLR &kp PRCNT    &kp CARET &kp AMPS  &kp ASTRK &kp LPAR &kp RPAR
             &kp GRAVE &kp DQT  &kp LBKT &kp LBRC &none        &kp MINUS &kp EQUAL &kp BSLH  &kp PIPE &none
             &kp TILDE &kp SQT  &kp RBKT &kp RBRC &none        &kp UNDER &kp PLUS  &kp LT    &kp GT   &kp QMARK
@@ -152,17 +116,7 @@
         };
             
         function_layer {
-            // FUN (Fn + Media)
-            // ┌─────┬─────┬─────┬─────┬─────┐   ┌─────┬─────┬─────┬─────┬─────┐
-            // │ F1  │ F2  │ F3  │ F4  │ F5  │   │ F6  │ F7  │ F8  │ F9  │ F10 │
-            // ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
-            // │SHIFT│ ALT │ GUI │ CTRL│     │   │BRI+ │VOL+ │MUTE │ F12 │ F11 │
-            // ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
-            // │HOME │PG_DN│PG_UP│ END │     │   │BRI- │VOL- │PSCRN│SLEEP│     │
-            // └─────┴─────┴─────┼─────┼─────┤   ├─────┼─────┼─────┴─────┴─────┘
-            //                   │     │     │   │     │     │
-            //                   └─────┴─────┘   └─────┴─────┘
-            bindings = <
+            bindings = 
             &kp F1     &kp F2     &kp F3     &kp F4     &kp F5    &kp F6        &kp F7       &kp F8     &kp F9       &kp F10
             &kp LSHIFT &kp LALT   &kp LGUI   &kp LCTRL  &none     &kp C_BRI_UP  &kp C_VOL_UP &kp C_MUTE &kp F12      &kp F11
             &kp HOME   &kp PG_DN  &kp PG_UP  &kp END    &trans    &kp C_BRI_DEC &kp C_VOL_DN &kp PSCRN  &kp C_SLEEP  &trans
@@ -170,43 +124,13 @@
             >;
         };
 
-        /* mouse_layer { 
-            // MOU (Mouse)
-            // ┌─────┬─────┬─────┬─────┬─────┐   ┌─────┬─────┬─────┬─────┬─────┐
-            // │     │     │ M↑  │     │     │   │ HOM │PG_DN│PG_UP│ END │     │
-            // ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
-            // │ SFT │ M←  │ M↓  │ M→  │ MOU │   │ S←  │ S↓  │ S↑  │ S→  │ MB5 │
-            // ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
-            // │UNDO │ CUT │COPY │ TAB │PAST │   │LCLK │RCLK │MCLK │ ALT │ MB4 │
-            // └─────┴─────┴─────┼─────┼─────┤   ├─────┼─────┼─────┴─────┴─────┘
-            //                   │     │     │   │     │     │
-            //                   └─────┴─────┘   └─────┴─────┘
-            bindings = <
-            &none      &none          &mmv MOVE_UP   &none           &none       &kp HOME       &kp PG_DN      &kp PG_UP    &kp END    &none
-            &kp LSHIFT &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_RIGHT &tog MOU    &msc SCRL_LEFT &msc SCRL_DOWN &msc SCRL_UP &msc SCRL_RIGHT &mkp MB5
-            &kp LC(Z)  &kp LC(X)      &kp LC(C)      &kp TAB         &kp LC(V)   &mkp LCLK      &mkp RCLK      &mkp MCLK    &kp RALT &mkp MB4
-                                                     &trans          &trans      &trans         &trans
-            >;
-        }; */
-
         settings_layer {
-            // SET (Bluetooth + Unstick + Boot)
-            // ┌─────┬─────┬─────┬─────┬─────┐   ┌─────┬─────┬─────┬─────┬─────┐
-            // │BT0  │BT1  │BT2  │BTCLR│BOOT │   │BOOT │     │     │     │     │
-            // ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
-            // │BT3  │BT4  │BT5  │     │     │   │     │     │     │     │     │
-            // ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
-            // │     │     │     │     │     │   │     │     │     │     │     │
-            // └─────┴─────┴─────┼─────┼─────┤   ├─────┼─────┼─────┴─────┴─────┘
-            //                   │     │     │   │UNSTK│     │
-            //                   └─────┴─────┘   └─────┴─────┘
-            bindings = <
-            &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_CLR  &bootloader  &bootloader  &none     &none     &none     &none
-            &bt BT_SEL 3 &bt BT_SEL 4 &bt BT_SEL 5 &none       &none        &none        &none     &none     &none     &none
-            &none        &none        &none        &none       &none        &none        &none     &none     &none     &none
+            bindings = 
+            &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_CLR  &bootloader  &bootloader  &none  &none  &none  &none
+            &bt BT_SEL 3 &bt BT_SEL 4 &none        &none       &none        &none        &none  &none  &none  &none
+            &none        &none        &none        &none       &none        &none        &none  &none  &none  &none
                                                    &none       &none        &unstick     &none
             >;
         };
     };
 };
-

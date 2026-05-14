@@ -6,7 +6,7 @@
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 
-#define COL 0
+#define QWE 0
 #define NUM 1
 #define SYM 2
 #define FUN 3
@@ -66,7 +66,7 @@
             timeout-ms = <50>;
             key-positions = <17 18>;
             bindings = <&kp ESC>;
-            layers = <COL>;
+            layers = <QWE>;
         };
 
         combo_settings {
@@ -87,24 +87,23 @@
     keymap {
         compatible = "zmk,keymap";
 
-        colemak-dh_layer {
-            // Base (Colemak-DH)
+        qwerty_layer {
+            // Base (QWERTY)
             // ┌─────┬─────┬─────┬─────┬─────┐   ┌─────┬─────┬─────┬─────┬─────┐
-            // │  Q  │  W  │  F  │  P  │  B  │   │  J  │  L  │  U  │  Y  │  ;  │
+            // │  Q  │  W  │  E  │  R  │  T  │   │  Y  │  U  │  I  │  O  │  P  │
             // ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
-            // │  A  │  R  │  S  │  T  │  G  │   │  M  │  N  │  E  │  I  │  O  │
-            // │ SFT*│ ALT*│ GUI*│ CTL*│     │   │     │     │    ESC    │     │
+            // │  A  │  S  │  D  │  F  │  G  │   │  H  │  J  │  K  │  L  │  ;  │
+            // │ SFT*│ ALT*│ GUI*│ CTL*│     │   │     │     │     │     │     │
             // ├─────┼─────┼─────┼─────┼─────┤   ├─────┼─────┼─────┼─────┼─────┤
-            // │  Z  │  X  │  C  │  D  │  V  │   │  K  │  H  │  ,  │  .  │  /  │
+            // │  Z  │  X  │  C  │  V  │  B  │   │  N  │  M  │  ,  │  .  │  /  │
             // └─────┴─────┴─────┼─────┼─────┤   ├─────┼─────┼─────┴─────┴─────┘
             //                   │ NUM │SPACE│   │ENTER│BSPC │
-            //  (* HOME ROW MOD) │     │     │   │     │ SYM │
             //                   └─────┴─────┘   └─────┴─────┘
             bindings = <
-            &kp Q        &kp W       &kp F        &kp P        &kp B      &kp J      &kp L        &kp U      &kp Y    &kp SEMI
-            &hm LSHIFT A &hm LALT R  &hm LGUI S   &hm LCTRL T  &kp G      &kp M      &kp N        &kp E      &kp I    &kp O
-            &kp Z        &kp X       &kp C        &kp D        &kp V      &kp K      &kp H        &kp COMMA  &kp DOT  &kp FSLH
-                                                  &mo NUM      &kp SPACE  &kp ENTER  &lt_custom SYM BSPC
+            &kp Q        &kp W        &kp E        &kp R        &kp T      &kp Y      &kp U        &kp I        &kp O        &kp P
+            &hm LSHIFT A &hm LALT S   &hm LGUI D   &hm LCTRL F  &kp G      &kp H      &kp J        &kp K        &kp L        &kp SEMI
+            &kp Z        &kp X        &kp C        &kp V        &kp B      &kp N      &kp M        &kp COMMA    &kp DOT      &kp FSLH
+                                                   &mo NUM      &kp SPACE  &kp ENTER  &lt_custom SYM BSPC
             >;
         };
 
